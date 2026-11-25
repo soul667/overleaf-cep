@@ -1,0 +1,9 @@
+FROM overleafcep/sharelatex:6.3.0-ext-v5.1
+
+COPY tools/flash-preview/controller.mjs /overleaf/services/web/app/src/Features/FlashPreview.mjs
+COPY tools/flash-preview/preview.js /overleaf/services/web/public/flash-preview-editor.js
+COPY services/web/app/src/Features/LocalAi/ /overleaf/services/web/app/src/Features/LocalAi/
+COPY services/web/app/src/router.mjs /overleaf/services/web/app/src/router.mjs
+COPY tools/flash-preview/apply_docker_patch.py /tmp/apply_docker_patch.py
+
+RUN python3 /tmp/apply_docker_patch.py && rm -f /tmp/apply_docker_patch.py

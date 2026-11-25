@@ -18,6 +18,7 @@ import {
 import { ImperativePanelHandle } from 'react-resizable-panels'
 
 export type RailTabKey =
+  | 'local-ai'
   | 'file-tree'
   | 'integrations'
   | 'review-panel'

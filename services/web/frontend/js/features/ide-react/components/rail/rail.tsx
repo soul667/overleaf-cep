@@ -1,3 +1,4 @@
+import AiPanel from '@/features/local-ai/ai-panel'
 import { FC, RefObject, useCallback, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Nav, TabContainer } from 'react-bootstrap'
@@ -98,6 +99,13 @@ export const RailLayout = () => {
 
   const railTabs: RailElement[] = useMemo(
     () => [
+      {
+        key: 'local-ai',
+        icon: 'forum',
+        title: 'AI 写作助手',
+        component: <AiPanel />,
+        hide: isRestrictedTokenMember,
+      },
       {
         key: 'file-tree',
         icon: 'description',

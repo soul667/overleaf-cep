@@ -1,3 +1,4 @@
+import { inlineAiCompletion } from '@/features/local-ai/inline-completion'
 import {
   EditorView,
   rectangularSelection,
@@ -118,6 +119,7 @@ export const createExtensions = (options: Record<string, any>): Extension[] => [
       }
     },
   }),
+  inlineAiCompletion,
   keymaps,
   goToLinePanel(),
   filterCharacters(),

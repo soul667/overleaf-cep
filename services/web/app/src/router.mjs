@@ -1,3 +1,5 @@
+import { searchResponse as alphaXivSearchResponse } from './Features/LocalAi/AlphaXivController.mjs'
+import { generateResponse as localAiResponse } from './Features/LocalAi/LocalAiController.mjs'
 import AdminController from './Features/ServerAdmin/AdminController.mjs'
 import ErrorController from './Features/Errors/ErrorController.mjs'
 import Features from './infrastructure/Features.mjs'
@@ -76,6 +78,8 @@ const { renderUnsupportedBrowserPage, unsupportedBrowserMiddleware } =
   UnsupportedBrowserMiddleware
 
 const rateLimiters = {
+  alphaXivSearch: new RateLimiter('alphaxiv-search', { points: 10, duration: 60 }),
+  localAi: new RateLimiter('local-ai', { points: 30, duration: 60 }),
   addEmail: new RateLimiter('add-email', {
     points: 10,
     duration: 60,
@@ -621,6 +625,22 @@ async function initialize(webRouter, privateApiRouter, publicApiRouter) {
     AuthenticationController.requireLogin(),
     AuthorizationMiddleware.ensureUserCanAdminProject,
     ProjectController.updateProjectAdminSettings
+  )
+
+  webRouter.post(
+    '/project/:Project_id/alphaxiv-search',
+    AuthenticationController.requireLogin(),
+    RateLimiterMiddleware.rateLimit(rateLimiters.alphaXivSearch, { params: ['Project_id'] }),
+    AuthorizationMiddleware.ensureUserCanReadProject,
+    alphaXivSearchResponse
+  )
+
+  webRouter.post(
+    '/project/:Project_id/local-ai',
+    AuthenticationController.requireLogin(),
+    RateLimiterMiddleware.rateLimit(rateLimiters.localAi, { params: ['Project_id'] }),
+    AuthorizationMiddleware.ensureUserCanReadProject,
+    localAiResponse
   )
 
   webRouter.post(
