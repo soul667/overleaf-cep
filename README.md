@@ -1,3 +1,13 @@
+> **🤖 AI 一键自动部署（One-Click AI Deployment）**
+>
+> 将下面这句话直接发给你的 AI 编程助手（Antigravity / Codex / Claude Code），AI 会自动拉取本仓库的部署 Skill 并为你完成全套 Docker 环境配置与启动：
+>
+> ```text
+> 请读取 https://raw.githubusercontent.com/soul667/overleaf-cep/ai-sidebar-autocomplete/.agents/skills/overleaf-local-deploy/SKILL.md 这个 Skill，并按其中的步骤帮我用 Docker 自动部署和配置这套 Overleaf CE+（含 FlashTeX 热预览）。
+> ```
+>
+> 预构建镜像：`ghcr.io/soul667/overleaf-cep-flash:latest`（由 GitHub Actions 自动构建）
+
 <h1 align="center">
   <br>
   <a href="https://www.overleaf.com"><img src="doc/logo.png" alt="Overleaf" width="300"></a>
